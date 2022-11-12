@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export class Header extends Component {
     render() {
         return (
-            <nav className="navbar navbar-expand-sm px-3 navbar-light bg-light">
+            <nav className="navbar navbar-expand-sm navbar-light bg-light">
                 <a className="navbar-brand" href="#">beanie</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
