@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 
 export class StartButton extends Component {
-  
-  start() {
+  animateMovement(moveFunc) {
     const duration = 1000;
     const fox = document.querySelector("#fox");
     const target = document.querySelector("#target");
+
+    if (!target) 
+      return console.log("There is no target!");
 
     const first = fox.getBoundingClientRect();
     const last = target.getBoundingClientRect();
@@ -20,9 +22,10 @@ export class StartButton extends Component {
       iterations: 1,
       easing: "linear"
     });
-
+    
     setTimeout(() => {
-      fox.style.transform = `translate(${dx}px, ${dy}px)`;
+      moveFunc(1, 1);
+      //fox.style.transform = `translate(${dx}px, ${dy}px)`;
     }, duration);
     
     // const codeField = document.querySelector('#code-field');
@@ -36,16 +39,11 @@ export class StartButton extends Component {
     //     .then(data => console.log({ postId: data.id }));
   }
 
-  animateNextStep() {
-
-  }
-
   render() {
     return (
-        <button onClick={this.start} type="button" className="btn btn-success">Start</button>
+        <button onClick={() => this.animateMovement(this.props.moveCharacter)} type="button" className="btn btn-success">Start</button>
     )
   }
-
 }
 
 export default StartButton

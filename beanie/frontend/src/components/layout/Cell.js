@@ -10,9 +10,10 @@ export class Cell extends Component {
         switch (this.props.type) {
             case "fox":
                 return (
-                    <div className="cell bg-success rounded border border-dark m-1
-                        d-flex justify-content-center align-items-center"
+                    <div className="cell bg-light rounded border m-1
+                        d-flex justify-content-center align-items-center text-muted"
                         style={{ width: this.state.size, height: this.state.size }}>
+                        
                         <div id="fox">
                         <img src="../static/frontend/fox.png"
                             className=""
@@ -24,8 +25,8 @@ export class Cell extends Component {
                 )
             case "target":
                 return (
-                    <div id="target" className="cell bg-success rounded border border-dark m-1
-                        d-flex justify-content-center align-items-center"
+                    <div id="target" className="cell bg-light rounded border m-1
+                        d-flex justify-content-center align-items-center text-muted"
                         style={{ width: this.state.size, height: this.state.size }} >
                         target
                     </div>
@@ -33,8 +34,8 @@ export class Cell extends Component {
             case "cell":
             default:
                 return (
-                    <div className="cell bg-success rounded border border-dark m-1 p-2
-                        d-flex justify-content-center align-items-center"
+                    <div className="cell bg-light rounded border m-1 p-2
+                        d-flex justify-content-center align-items-center text-muted"
                         style={{ width: this.state.size, height: this.state.size }} >
                         cell
                     </div>
