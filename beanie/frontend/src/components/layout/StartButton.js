@@ -41,7 +41,12 @@ export class StartButton extends Component {
 
   render() {
     return (
-        <button onClick={() => this.animateMovement(this.props.moveCharacter)} type="button" className="btn btn-success">Start</button>
+      <div className="my-1 text-center">
+        <button type="button" className="w-50 btn btn-success"
+          onClick={() => this.animateMovement(this.props.moveCharacter)}>
+            Start
+        </button>
+      </div>
     )
   }
 }

@@ -3,6 +3,7 @@ import './App.css';
 import React, { Component, Fragment } from 'react';
 
 import Header from './layout/Header';
+import Footer from './layout/Footer';
 import GameField from './layout/GameField';
 import CodeButtons from './layout/CodeButtons';
 import StartButton from './layout/StartButton';
@@ -29,17 +30,14 @@ export class App extends Component {
         <div className="w-100 h-100 d-flex flex-column" >
           <Header />
           <LevelContext.Provider value={this.state}>
-            {/* TODO introduce <Fields /> component */}
-            <div className="flex-grow-1">
-              <div className="h-100 w-100 m-0 row row-cols-3">
-                <div className="w-10"> <CodeButtons /> </div>
-                <CodeField /> 
-                <GameField />
-              </div>
+            <div className="h-100 w-100 m-0 mt-1 row row-cols-3">
+              <CodeButtons /> 
+              <CodeField /> 
+              <GameField />
             </div>
             <StartButton moveCharacter={(x, y) => this.moveCharacter(x, y)} />
           </LevelContext.Provider>
-          <footer>Footer</footer>
+          <Footer />
         </div>
       
       // <div className="App">
