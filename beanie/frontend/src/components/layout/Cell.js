@@ -7,10 +7,11 @@ export class Cell extends Component {
     }
 
     render() {
+        const id = this.props.id;
         switch (this.props.type) {
             case "fox":
                 return (
-                    <div className="cell bg-light rounded border m-1
+                    <div id={id} className="cell bg-light rounded border m-1
                         d-flex justify-content-center align-items-center text-muted"
                         style={{ width: this.state.size, height: this.state.size }}>
                         
@@ -25,7 +26,7 @@ export class Cell extends Component {
                 )
             case "target":
                 return (
-                    <div id="target" className="cell bg-light rounded border m-1
+                    <div id={id} className="cell bg-light rounded border m-1
                         d-flex justify-content-center align-items-center text-muted"
                         style={{ width: this.state.size, height: this.state.size }} >
                         target
@@ -34,7 +35,7 @@ export class Cell extends Component {
             case "cell":
             default:
                 return (
-                    <div className="cell bg-light rounded border m-1 p-2
+                    <div id={id} className="cell bg-light rounded border m-1 p-2
                         d-flex justify-content-center align-items-center text-muted"
                         style={{ width: this.state.size, height: this.state.size }} >
                         cell

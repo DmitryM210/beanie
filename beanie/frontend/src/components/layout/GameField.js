@@ -18,21 +18,21 @@ export class GameField extends Component {
 
     renderCellAt(x, y) {
         var {start, target} = this.context;
-        var type = "cell";
+        var id = `c-${x}-${y}`, type = "cell";
         if (x === start.x && y === start.y)
             type = "fox";
         else if (x === target.x && y === target.y)
             type = "target";
         return (
         <div key={this.state.keyIndex++} className="col"> 
-            <Cell key={this.state.keyIndex++} type={type}/> 
+            <Cell key={this.state.keyIndex++} id={id} type={type}/> 
         </div>
         );
     };
 
     renderField(width, height) {
         const content = [];
-        for (var y = 0; y < height; y++) {
+        for (var y = height-1; y >= 0; y--) {
             for (var x = 0; x < width; x++) {
                 content.push(this.renderCellAt(x, y));
             }

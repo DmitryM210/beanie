@@ -75,8 +75,11 @@ class Path(models.Model):
 
         for command in commands:
             self.field.hero.accept_command(command)
-            pos = self.field.hero.position
-            positions.append(str(pos))
+            position = self.field.hero.position
+            positions.append({
+                "x": position.x,
+                "y": position.y
+                })
 
         return positions
 
