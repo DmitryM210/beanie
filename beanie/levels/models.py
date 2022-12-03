@@ -66,6 +66,21 @@ class Hero(models.Model):
             )
 
 
+class Path(models.Model):
+    def __init__(self, field):
+        self.field = field
+
+    def build(self, commands):
+        positions = []
+
+        for command in commands:
+            self.field.hero.accept_command(command)
+            pos = self.field.hero.position
+            positions.append(str(pos))
+
+        return positions
+
+
 class Field(models.Model):
     def __init__(self, width, height):
         self.width = width
@@ -75,4 +90,5 @@ class Field(models.Model):
 
 class Level(models.Model):
     def __init__(self):
+        # TODO: remove force-coded values
         self.field = Field(2, 3)
