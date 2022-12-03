@@ -1,5 +1,7 @@
 from django.db import models
 
+from math import sin, cos, pi
+
 
 class Vector2(models.Model):
     def __init__(self, x=0, y=0):
@@ -24,30 +26,44 @@ class Vector2(models.Model):
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
 
+    def __iter__(self):
+        return iter((self.x, self.y))
+
     def __str__(self):
         return f"({self.x}, {self.y})"
 
 
 class Hero(models.Model):
-    def __init__(self):
-        self.position = Vector2(0, 0)
+    def __init__(self, x=0, y=0):
+        self.position = Vector2(x, y)
         self.direction = Vector2(1, 0)
         self.velocity = 1
 
         self.commands = {
-            'move': self.move,
-            'rotate left': self.rotate_left
+            'move': self.move_forward,
+            'rotate left': self.rotate_counterclockwise
         }
 
     def accept_command(self, command):
         command = command.lower()
-        self.commands[command](self)
+        self.commands[command]()
 
-    def move(self):
+    def move_forward(self):
         self.position = self.position + self.direction * self.velocity
     
-    def rotate_left(self):
-        pass
+    def rotate_counterclockwise(self):
+        self._rotate(pi/2)
+
+    def rotate_clockwise(self):
+        self._rotate(-pi/2)
+
+    def _rotate(self, angle_in_radians):
+        x, y = self.direction
+        angle = angle_in_radians
+        self.direction = Vector2(
+            int(x * cos(angle) - y * sin(angle)),
+            int(x * sin(angle) + y * cos(angle))
+            )
 
 
 class Field(models.Model):
