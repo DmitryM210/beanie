@@ -17,9 +17,9 @@ export class GameField extends Component {
     };
 
     renderCellAt(x, y) {
-        var {start, target} = this.context;
+        var {hero, target} = this.context;
         var id = `c-${x}-${y}`, type = "cell";
-        if (x === start.x && y === start.y)
+        if (x === hero.x && y === hero.y)
             type = "fox";
         else if (x === target.x && y === target.y)
             type = "target";
@@ -42,6 +42,8 @@ export class GameField extends Component {
     };
 
     render() {
+        if (!this.context) return;
+
         // TODO: prevent redrawing
         return (
         <div className="container">

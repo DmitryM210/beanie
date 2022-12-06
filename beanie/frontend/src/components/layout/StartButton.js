@@ -24,7 +24,8 @@ function _animateHero(moveFunc) {
     body: JSON.stringify(body)
   };
 
-  fetch('http://localhost:8000/handle/', requestOptions)
+  const url = new URL('level/handle/', window.location.href);
+  fetch(url.href, requestOptions)
       .then(response => response.json())
       .then(data => {
         // console.log(data.path);

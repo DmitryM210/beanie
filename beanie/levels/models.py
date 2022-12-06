@@ -49,7 +49,9 @@ class Hero(models.Model):
         self.commands[command]()
 
     def move_forward(self):
+        print(self.position)
         self.position = self.position + self.direction * self.velocity
+        print(self.position)
     
     def rotate_counterclockwise(self):
         self._rotate(pi/2)
@@ -66,16 +68,17 @@ class Hero(models.Model):
             )
 
 
+# TODO: Path shouldn't modify hero's state
 class Path(models.Model):
-    def __init__(self, field):
-        self.field = field
+    def __init__(self, hero):
+        self.hero = hero
 
     def build(self, commands):
         positions = []
 
         for command in commands:
-            self.field.hero.accept_command(command)
-            position = self.field.hero.position
+            self.hero.accept_command(command)
+            position = self.hero.position
             positions.append({
                 "x": position.x,
                 "y": position.y
@@ -88,10 +91,17 @@ class Field(models.Model):
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.hero = Hero()
 
 
 class Level(models.Model):
-    def __init__(self):
-        # TODO: remove force-coded values
-        self.field = Field(2, 3)
+    def __init__(self, width, height, hero):
+        self.field = Field(width, height)
+        self.hero = hero
+
+    def reload(self):
+        self.hero = Hero()
+
+
+levels = {
+    'level1': Level(2, 3, Hero())
+}
