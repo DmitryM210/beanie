@@ -31,3 +31,10 @@ In the same directory of `.\beanie`, call this command to run the server on Djan
 ```
 python manage.py runserver 
 ```
+With the server started, you can for instance open it in the browser at `localhost:8000` (those address and port are used by default). You can stop the server with `CTRL+C` in the terminal.
+
+## Tests
+The project of beanie has unit-tests for the logic written on the backend. From the directory of `.\beanie` you can run those tests via:
+```
+python manage.py test .\tests\
+```
