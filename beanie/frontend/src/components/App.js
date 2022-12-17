@@ -1,79 +1,48 @@
-import logo from './logo.svg';
 import './App.css';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import Header from './layout/Header';
 import Footer from './layout/Footer';
-import GameField from './layout/GameField';
-import CodeButtons from './layout/CodeButtons';
-import StartButton from './layout/StartButton';
-import CodeField from './layout/CodeField';
-import { LevelContext } from './contexts/LevelContext';
+import LogoScreen from './LogoScreen';
+import Environment from './Environment';
 
-async function _getLevelInfo() {
-  const requestOptions = { method: 'GET' };
-  const url = new URL('level/1/info/', window.location.href);
+const levelsByUrl = {
+  "/": 0,
+  "/level/1/": 1,
+  "/level/2/": 2
+};
 
-  return await fetch(url.href, requestOptions)
-      .then(response => response.json())
-      .then(data => {
-        // console.log(data);
-        return data;
-      });
-}
-
-// TODO make normal tabulation
 export class App extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-          size: { width: 0, height: 0 },
-          hero: { x: 0, y: 0 },
-          target:  { x: 1, y: 1 }
-      };  
+    super(props);
+    this.state = {
+      selectedLevel: 0
+    };
   }
 
-  moveCharacter(x, y) {
-    this.setState({ hero: { x: x, y: y} });
+  componentDidMount() {
+    // console.log(window.location);
+    const level = levelsByUrl[window.location.pathname];
+    console.log(level);
+    this.setState({ selectedLevel: level });
   }
 
-  async componentDidMount() {
-    const info = await _getLevelInfo();
-    // console.log(this.state);
-    this.setState(info);
+  selectLevel() {
+    // this.setState({ isLevelSelected: true });
+    const url = new URL("level/1/", window.location.origin);
+    window.location.href = url.href;
   }
 
   render() {
+    const content = this.state.selectedLevel == 0 ?
+      (<LogoScreen selectLevel={this.selectLevel.bind(this)} />) : 
+      (<Environment />)
     return (
-        <div className="w-100 h-100 d-flex flex-column" >
-          <Header />
-          <LevelContext.Provider value={this.state}>
-            <div className="h-100 w-100 m-0 mt-1 row row-cols-3">
-              <CodeButtons /> 
-              <CodeField />
-              <GameField />
-            </div>
-            <StartButton moveCharacter={(x, y) => this.moveCharacter(x, y)} />
-          </LevelContext.Provider>
-          <Footer />
-        </div>
-      
-      // <div className="App">
-      //   <header className="App-header">
-      //     <img src={logo} className="App-logo" alt="logo" />
-      //     <p>
-      //       Edit <code>src/App.js</code> and save to reload.
-      //     </p>
-      //     <a
-      //       className="App-link"
-      //       href="https://reactjs.org"
-      //       target="_blank"
-      //       rel="noopener noreferrer"
-      //     >
-      //       Learn React !!!
-      //     </a>
-      //   </header>
-      // </div>
+      <div className="w-100 h-100 d-flex flex-column" >
+        <Header />
+        {content}
+        <Footer />
+      </div>
     )
   }
 }

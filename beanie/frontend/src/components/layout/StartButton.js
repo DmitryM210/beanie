@@ -24,7 +24,7 @@ async function _fetchPath() {
     body: JSON.stringify(body)
   };
 
-  const url = new URL('level/handle/', window.location.href);
+  const url = new URL('level/handle/', window.location.origin);
   return await fetch(url.href, requestOptions)
       .then(response => response.json())
       .then(data => data.path);
@@ -53,8 +53,7 @@ async function _animateMove(position) {
   const targetId = `#c-${x}-${y}`;
   const target = document.querySelector(targetId);
 
-  if (!target)
-    return console.log("There is no target!");
+  if (!target) console.log("There is no target!");
   
   const first = fox.getBoundingClientRect();
   const last = target.getBoundingClientRect();
@@ -77,7 +76,7 @@ async function _animateMove(position) {
 export class StartButton extends Component {
   async animateMovement(moveFunc) {
     const path = await _fetchPath();
-    await _animatePath(path, moveFunc);
+    if (path) await _animatePath(path, moveFunc);
   }
 
   render() {
