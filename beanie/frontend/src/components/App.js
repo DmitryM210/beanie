@@ -23,7 +23,6 @@ export class App extends Component {
   componentDidMount() {
     // console.log(window.location);
     const level = levelsByUrl[window.location.pathname];
-    console.log(level);
     this.setState({ selectedLevel: level });
   }
 
