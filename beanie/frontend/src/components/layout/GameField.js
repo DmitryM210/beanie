@@ -40,11 +40,12 @@ export class GameField extends Component {
         }
         return content;
     };
-
+    
     render() {
         if (!this.context) return;
 
         // TODO: prevent redrawing
+        console.log("field redraw !!");
         return (
         <div className="container">
             <div className="row">
