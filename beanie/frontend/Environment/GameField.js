@@ -1,5 +1,5 @@
 import { React, Component, useContext } from 'react';
-import { LevelContext } from '../contexts/LevelContext';
+import { LevelContext } from '../Contexts/LevelContext';
 import Cell from './Cell';
 
 export class GameField extends Component {

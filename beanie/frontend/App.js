@@ -1,10 +1,9 @@
-import './App.css';
 import React, { Component } from 'react';
 
-import Header from './layout/Header';
-import Footer from './layout/Footer';
-import LogoScreen from './LogoScreen';
-import Environment from './Environment';
+import Header from './Header/Header';
+import Footer from './Footer/Footer';
+import LogoScreen from './LogoScreen/LogoScreen';
+import Environment from './Environment/Environment';
 
 const levelsByUrl = {
   "/": 0,

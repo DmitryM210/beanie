@@ -8,7 +8,7 @@ export class Cell extends Component {
 
   render() {
     const id = this.props.id;
-    const heroImageUrl = new URL("../static/frontend/fox.png", window.location.origin);
+    const heroImageUrl = new URL("static/fox.png", window.location.origin);
 
     switch (this.props.type) {
       case "fox":
@@ -18,7 +18,7 @@ export class Cell extends Component {
             style={{ width: this.state.size, height: this.state.size }}>
 
             <div id="fox">
-              <img src={heroImageUrl.href}
+              <img src={heroImageUrl}
                 className=""
                 alt="fox"
                 width={this.state.size - this.state.innerPadding}

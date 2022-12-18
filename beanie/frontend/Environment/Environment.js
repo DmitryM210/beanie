@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import GameField from './layout/GameField';
-import CodeButtons from './layout/CodeButtons';
-import StartButton from './layout/StartButton';
-import CodeField from './layout/CodeField';
-import { LevelContext } from './contexts/LevelContext';
+import GameField from './GameField';
+import CodeButtons from './CodeButtons';
+import StartButton from './StartButton';
+import CodeField from './CodeField';
+import { LevelContext } from '../Contexts/LevelContext';
 
 async function _getLevelInfo() {
   const requestOptions = { method: 'GET' };

@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.http import JsonResponse
 
 import json
@@ -7,6 +8,10 @@ from levels.models import Path, levels
 
 # TODO: remove force-coded values
 level = levels['level1']
+
+
+def index(request):
+    return render(request, 'index.html')
 
 
 def handle_commands(request):
