@@ -17,15 +17,16 @@ export class GameField extends Component {
   };
 
   renderCellAt(x, y) {
-    var { hero, target } = this.context;
-    var id = `c-${x}-${y}`, type = "cell";
-    if (x === hero.x && y === hero.y)
-      type = "fox";
-    else if (x === target.x && y === target.y)
-      type = "target";
+    const { hero, puddle } = this.context;
+    const id = `c-${x}-${y}`;
+
+    const hasHero = x === hero.x && y === hero.y;
+    const hasPuddle = x === puddle.x && y === puddle.y;
+    const tags = `${hasHero ? 'hero' : ''}` + `${hasPuddle ? ' puddle' : ''}`;
+    
     return (
       <div key={this.state.keyIndex++} className="col">
-        <Cell key={this.state.keyIndex++} id={id} type={type} />
+        <Cell key={this.state.keyIndex++} id={id} tags={tags} />
       </div>
     );
   };
@@ -43,13 +44,15 @@ export class GameField extends Component {
 
   render() {
     if (!this.context) return;
+    const width = this.context.size.width;
+    const height = this.context.size.height;
 
     // TODO: prevent redrawing
     // console.log("field redraw !!");
     return (
       <div className="container">
         <div className="row">
-          {this.renderField(this.context.size.width, this.context.size.height)}
+          { this.renderField(width, height) }
         </div>
       </div>
     )
