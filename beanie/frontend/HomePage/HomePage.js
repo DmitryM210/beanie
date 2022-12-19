@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class LogoScreen extends Component {
+export class HomePage extends Component {
   render() {
     return (
       <div className="h-100 w-100 d-flex justify-content-center align-items-center">
@@ -18,4 +18,4 @@ export class LogoScreen extends Component {
   }
 }
 
-export default LogoScreen;
+export default HomePage;

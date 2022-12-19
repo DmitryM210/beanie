@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
-import LogoScreen from './LogoScreen/LogoScreen';
+import LogoScreen from './HomePage/HomePage';
 import Environment from './Environment/Environment';
 
 const levelsByUrl = {
