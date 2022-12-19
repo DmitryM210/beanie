@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
-import LogoScreen from './HomePage/HomePage';
+import HomePage from './HomePage/HomePage';
 import Environment from './Environment/Environment';
 
 const levelsByUrl = {
@@ -33,7 +33,7 @@ export class App extends Component {
 
   render() {
     const content = this.state.selectedLevel == 0 ?
-      (<LogoScreen selectLevel={this.selectLevel.bind(this)} />) : 
+      (<HomePage selectLevel={this.selectLevel.bind(this)} />) : 
       (<Environment />)
     return (
       <div className="w-100 h-100 d-flex flex-column" >

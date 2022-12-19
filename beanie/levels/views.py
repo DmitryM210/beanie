@@ -20,9 +20,7 @@ def handle_commands(request):
     
     body = json.loads(request.body)
     commands = body['commands']
-
-    path = Path(level.hero).build(commands)
-    level.reload()
+    path = Path(level).build_json(commands)
 
     return JsonResponse({ 'path': path })
 

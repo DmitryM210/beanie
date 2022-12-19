@@ -14,7 +14,7 @@ export class Cell extends Component {
       case "fox":
         return (
           <div id={id} className="cell bg-light rounded border m-1
-                        d-flex justify-content-center align-items-center text-muted"
+                        d-flex justify-content-center align-items-center text-muted bg-danger"
             style={{ width: this.state.size, height: this.state.size }}>
 
             <div id="fox">

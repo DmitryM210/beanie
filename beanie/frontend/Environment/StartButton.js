@@ -46,6 +46,8 @@ async function _animatePath(path, moveFunc) {
   var [lastX, lastY] = [0, 0];
   for (const position of path) {
     const { x, y } = position;
+    if (x < 0 && y < 0)
+      return _onCollision();
     if (lastX === x && lastY === y)
       continue;
     [lastX, lastY] = [x, y];
@@ -53,6 +55,12 @@ async function _animatePath(path, moveFunc) {
     moveFunc(position.x, position.y);
     await _timeout(100);
   }
+}
+
+function _onCollision() {
+  const fox = document.querySelector("#fox");
+  fox.classList.add("bg-danger");
+  console.log("Collision detected!");
 }
 
 async function _animateMove(position) {
