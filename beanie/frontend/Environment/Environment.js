@@ -8,10 +8,11 @@ import { LevelContext } from '../Contexts/LevelContext';
 
 async function _getLevelInfo() {
   const requestOptions = { method: 'GET' };
-  const url = new URL('level/1/info/', window.location.origin);
+  const url = new URL('info/', window.location.href);
   return await fetch(url.href, requestOptions)
       .then(response => response.json())
-      .then(data => data);
+      .then(data => data)
+      .catch(error => console.log('Error:', error));
 }
 
 export class Environment extends Component {

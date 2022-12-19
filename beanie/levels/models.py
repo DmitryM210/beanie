@@ -117,5 +117,6 @@ class Level(models.Model):
 
 
 levels = {
-    'level1': Level(2, 3, Hero())
+    'level1': Level(2, 3, Hero()),
+    'level2': Level(2, 6, Hero()),
 }

@@ -25,16 +25,10 @@ export class App extends Component {
     this.setState({ selectedLevel: level });
   }
 
-  selectLevel() {
-    // this.setState({ isLevelSelected: true });
-    const url = new URL("level/1/", window.location.origin);
-    window.location.href = url.href;
-  }
-
   render() {
     const content = this.state.selectedLevel == 0 ?
-      (<HomePage selectLevel={this.selectLevel.bind(this)} />) : 
-      (<Environment />)
+      (<HomePage redirect="level/1/" />) : 
+      (<Environment level={this.state.selectedLevel} />)
     return (
       <div className="w-100 h-100 d-flex flex-column" >
         <Header />

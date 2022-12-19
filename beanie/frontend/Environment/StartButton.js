@@ -34,7 +34,7 @@ async function _fetchPath() {
     body: JSON.stringify(body)
   };
 
-  const url = new URL('level/handle/', window.location.origin);
+  const url = new URL('handle/', window.location.href);
   return await fetch(url.href, requestOptions)
     .then(response => response.json())
     .then(data => data.path);
