@@ -5,11 +5,11 @@ import Footer from './Footer/Footer';
 import HomePage from './HomePage/HomePage';
 import Environment from './Environment/Environment';
 
-const levelsByUrl = {
-  "/": 0,
-  "/level/1/": 1,
-  "/level/2/": 2
-};
+// const levelsByUrl = {
+//   "/": 0,
+//   "/level/1/": 1,
+//   "/level/2/": 2
+// };
 
 export class App extends Component {
   constructor(props) {
@@ -21,7 +21,9 @@ export class App extends Component {
 
   componentDidMount() {
     // console.log(window.location);
-    const level = levelsByUrl[window.location.pathname];
+    const pattern = /\/level\/(?<level>[0-9]+)\//g
+    const [match] = window.location.href.matchAll(pattern);
+    const level = match?.groups?.level || 0;
     this.setState({ selectedLevel: level });
   }
 
