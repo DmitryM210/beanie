@@ -45,14 +45,28 @@ def get_level_info(request, level_id):
     })
 
 
-def level_not_found(level):
-    message = f'Level {level} was not found'
+def get_level_list(request):
+    level_list = list(map(level_to_level_href, levels.items()))
+    return JsonResponse({
+        'levels': level_list
+    })
+
+
+def level_to_level_href(item):
+    level_id, level = item
+    return {
+        'name': level.name,
+        'href': f'/level/{level_id}/'
+    }
+
+
+def level_not_found(level_id):
+    message = f'Level {level_id} was not found'
     raise Http404(message)
 
 
 def get_level_by_id(level_id):
-    level_name = f'level{level_id}'
-    if level_name in levels:
-        return levels[level_name]
+    if level_id in levels:
+        return levels[level_id]
     else:
         return None

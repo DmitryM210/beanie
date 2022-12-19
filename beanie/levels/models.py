@@ -100,7 +100,8 @@ class Field(models.Model):
 
 
 class Level(models.Model):
-    def __init__(self, width, height, hero):
+    def __init__(self, name, width, height, hero):
+        self.name = name
         self.field = Field(width, height)
         self.hero = hero
 
@@ -117,6 +118,6 @@ class Level(models.Model):
 
 
 levels = {
-    'level1': Level(2, 3, Hero()),
-    'level2': Level(2, 6, Hero()),
+    1: Level('level1', 2, 3, Hero()),
+    2: Level('level2', 2, 4, Hero()),
 }
