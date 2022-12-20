@@ -36,7 +36,11 @@ class Vector2(models.Model):
             raise TypeError(message)
 
     def __eq__(self, other):
-        return self.x == other.x and self.y == other.y
+        return (isinstance(other, Vector2) and 
+            self.x == other.x and self.y == other.y)
+
+    def __hash__(self):
+        hash((self.x, self.y))
 
     def __iter__(self):
         return iter((self.x, self.y))
@@ -45,9 +49,25 @@ class Vector2(models.Model):
         return f"({self.x}, {self.y})"
 
 
-class Hero(models.Model):
-    def __init__(self, x=0, y=0):
+class Object(models.Model):
+    def __init__(self, name, x=0, y=0):
+        self.name = name
         self.position = Vector2(x, y)
+
+    def __eq__(self, other):
+        return (isinstance(other, Object) and 
+            self.name == other.name and self.position == other.position)
+
+    def __hash__(self):
+        hash((self.name, self.position))
+
+    def __str__(self):
+        return f"{{ {self.name} at {self.position} }}"
+
+
+class Hero(Object):
+    def __init__(self, x=0, y=0):
+        super().__init__('Hero', x, y)
         self.direction = Vector2(1, 0)
         self.velocity = 1
 
@@ -94,16 +114,25 @@ class Path(models.Model):
 
 
 class Field(models.Model):
-    def __init__(self, width, height):
+    def __init__(self, width, height, objects):
+        self._assert_objects_are_valid(objects)
         self.width = width
         self.height = height
+        self.objects = objects
+        self.hero = objects['Hero']
+    
+    def _assert_objects_are_valid(self, objects):
+        hero_exists = 'Hero' in objects
+        assert hero_exists, 'objects must contain a hero'
+        hero_is_unique = len(objects['Hero']) == 1
+        assert hero_is_unique, 'field cannot contain more than one hero'
 
 
 class Level(models.Model):
-    def __init__(self, name, width, height, hero):
+    def __init__(self, name, field):
         self.name = name
-        self.field = Field(width, height)
-        self.hero = hero
+        self.field = field
+        self.hero = field.hero
 
     def accept_command(self, command):
         self.hero.accept_command(command)
@@ -115,9 +144,3 @@ class Level(models.Model):
 
     def reload(self):
         self.hero = Hero()
-
-
-levels = {
-    1: Level('level1', 2, 3, Hero()),
-    2: Level('level2', 2, 4, Hero()),
-}

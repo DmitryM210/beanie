@@ -3,7 +3,8 @@ from django.http import JsonResponse, Http404
 
 import json
 
-from levels.models import Path, levels
+from levels.models import Path
+from levels.levels import levels
 
 
 def index(request, level_id=None):
