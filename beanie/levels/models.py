@@ -119,7 +119,7 @@ class Field(models.Model):
         self.width = width
         self.height = height
         self.objects = objects
-        self.hero = objects['Hero']
+        self.hero = objects['Hero'][0]
     
     def _assert_objects_are_valid(self, objects):
         hero_exists = 'Hero' in objects

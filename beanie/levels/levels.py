@@ -1,29 +1,6 @@
 from levels.models import Level, Field, Hero, Object
 
 
-levels = {
-    1: Level('level1', Field(2, 3, Hero())),
-    2: Level('level2', Field(2, 4, Hero())),
-}
-
-level_object_ctors = {
-    'H': lambda x, y: Hero(x, y),
-    'P': lambda x, y: Object('Puddle', x, y),
-}
-
-
-# levels = {
-#     1: Level('level1', Field(2, 3, { 'Hero': [Hero()] })),
-#     2: Level('level2', Field(2, 4, { 'Hero': [Hero()] })),
-# }
-
-# map1 = [
-#     '..',
-#     '..',
-#     'H.'
-# ]
-
-
 def level(name, map):
     _assert_map_format_is_valid(map)
     width, height = len(map[0]), len(map)
@@ -57,3 +34,23 @@ def _assert_map_format_is_valid(map):
 
 def create_level_object(x, y, char):
     return level_object_ctors[char](x, y)
+
+
+level_object_ctors = {
+    'H': lambda x, y: Hero(x, y),
+    'P': lambda x, y: Object('Puddle', x, y),
+}
+
+levels = {
+    1: level('level1', [
+        '..',
+        '..',
+        'H.',
+    ]),
+    2: level('level2', [
+        '..',
+        '..',
+        '..',
+        'H.',
+    ])  
+}
