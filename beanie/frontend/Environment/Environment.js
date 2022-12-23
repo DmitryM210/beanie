@@ -21,7 +21,7 @@ export class Environment extends Component {
     this.state = {
         size: { width: 0, height: 0 },
         hero: { x: 0, y: 0 },
-        puddle: { x: 0, y: 0 }
+        // puddle: { x: 0, y: 0 }
     };  
   }
 

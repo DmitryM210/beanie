@@ -17,11 +17,11 @@ export class GameField extends Component {
   };
 
   renderCellAt(x, y) {
-    const { hero, puddle } = this.context;
+    const { hero, objects } = this.context;
     const id = `c-${x}-${y}`;
 
-    const hasHero = x === hero.x && y === hero.y;
-    const hasPuddle = x === puddle.x && y === puddle.y;
+    const hasHero = x == hero.x && y == hero.y;
+    const hasPuddle = objects[`${x},${y}`]?.includes('Puddle');
     const tags = `${hasHero ? 'hero' : ''}` + `${hasPuddle ? ' puddle' : ''}`;
     
     return (

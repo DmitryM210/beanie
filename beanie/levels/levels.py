@@ -36,6 +36,37 @@ def create_level_object(x, y, char):
     return level_object_ctors[char](x, y)
 
 
+def level_to_json(level):
+    if level.name in cached_level_jsons:
+        return cached_level_jsons[level.name]
+
+    objects_json = {}
+    
+    for object_list in level.field.objects.values():
+        for object in object_list:
+            if object.name == 'Hero': continue
+            position_json = f'{object.position.x},{object.position.y}'
+            if position_json not in objects_json:
+                objects_json[position_json] = []
+            objects_json[position_json].append(object.name)
+
+    cached_level_jsons[level.name] = {
+        'size': {
+            'width': level.field.width,
+            'height': level.field.height
+        },
+        'hero': {
+            'x': level.hero.position.x,
+            'y': level.hero.position.y,
+        },
+        'objects': objects_json
+    }
+
+    return cached_level_jsons[level.name]
+
+
+cached_level_jsons = {}
+
 level_object_ctors = {
     'H': lambda x, y: Hero(x, y),
     'P': lambda x, y: Object('Puddle', x, y),
@@ -43,14 +74,14 @@ level_object_ctors = {
 
 levels = {
     1: level('level1', [
-        '..',
-        '..',
-        'H.',
+        '..P',
+        '...',
+        'H..',
     ]),
     2: level('level2', [
-        '..',
-        '..',
-        '..',
-        'H.',
+        '...',
+        '...',
+        'PP.',
+        'HP.',
     ])  
 }

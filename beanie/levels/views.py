@@ -4,7 +4,7 @@ from django.http import JsonResponse, Http404
 import json
 
 from levels.models import Path
-from levels.levels import levels
+from levels.levels import levels, level_to_json
 
 
 def index(request, level_id=None):
@@ -34,16 +34,8 @@ def get_level_info(request, level_id):
     if not level:
         return level_not_found(level_id)
 
-    return JsonResponse({ 
-        'size': {
-            'width': level.field.width,
-            'height': level.field.height
-        },
-        'hero': {
-            'x': level.hero.position.x,
-            'y': level.hero.position.y
-        }
-    })
+    level_json = level_to_json(level)
+    return JsonResponse(level_json)
 
 
 def get_level_list(request):
