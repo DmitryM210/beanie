@@ -39,7 +39,6 @@ export class App extends Component {
     const level = Number(this.state.selectedLevel);
     const next = level < this.state.levels.length ? 
       `/level/${level+1}` : '';
-    console.log('next', next);
     return (
       <Environment level={level} next={next} />
     )

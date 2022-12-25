@@ -101,15 +101,25 @@ class Path(models.Model):
         for command in commands:
             # TODO: Path shouldn't modify level's state
             self.level.accept_command(command)
-            in_bounds = self.level.field.is_hero_in_bounds()
+            no_collision = not self.has_collision()
             position = self.level.field.hero.position
             positions.append({
-                "x": position.x if in_bounds else -1,
-                "y": position.y if in_bounds else -1
+                "x": position.x if no_collision else -1,
+                "y": position.y if no_collision else -1
             })
 
         self.level.reload()
         return positions
+
+    def has_collision(self):
+        in_bounds = self.level.field.is_hero_in_bounds()
+        collision = False
+        if 'Puddle' in self.level.field.objects:
+            for puddle in self.level.field.objects['Puddle']:
+                if self.level.field.hero.position == puddle.position:
+                    collision = True
+                    break
+        return not in_bounds or collision
 
 
 class Field(models.Model):
