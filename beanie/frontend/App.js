@@ -32,18 +32,31 @@ export class App extends Component {
 
   async componentDidMount() {
     const levels = await _fetchLevels();
-    // console.log(levels);
     this.setState({ levels: levels });
   }
 
-  render() {
+  renderEnvironment() {
+    const level = Number(this.state.selectedLevel);
+    const next = level < this.state.levels.length ? 
+      `/level/${level+1}` : '';
+    console.log('next', next);
+    return (
+      <Environment level={level} next={next} />
+    )
+  }
+
+  renderContent() {
     const content = this.state.selectedLevel === '0' ?
-      (<HomePage redirect="level/1/" />) : 
-      (<Environment level={this.state.selectedLevel} />)
+      (<HomePage redirect='level/1/' />) : 
+      this.renderEnvironment();
+    return content;
+  }
+
+  render() {
     return (
       <div className="w-100 h-100 d-flex flex-column">
         <Header levels={this.state.levels} />
-        {content}
+        { this.renderContent() }
         <Footer />
       </div>
     )

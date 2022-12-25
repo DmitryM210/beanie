@@ -4,7 +4,11 @@ import GameField from './GameField';
 import CodeButtons from './CodeButtons';
 import StartButton from './StartButton';
 import CodeField from './CodeField';
+import Modal from './Modal';
 import { LevelContext } from '../Contexts/LevelContext';
+
+const END_LEVEL_MESSAGE = 'Hey, you did it! Now you can go to the next level!';
+const END_GAME_MESSAGE = 'Hey, you did it! You have completed all the levels!'
 
 async function _getLevelInfo() {
   const requestOptions = { method: 'GET' };
@@ -20,14 +24,31 @@ export class Environment extends Component {
     super(props);
     this.state = {
         size: { width: 0, height: 0 },
+        modalHref: '',
+        modalText: '',
     };
+  }
+
+  showModal(text, href) {
+    this.setState({ modalHref: href, modalText: text });
+    const modalElement = document.querySelector('#modal');
+    var modal = new bootstrap.Modal(modalElement);
+    if (text) modal.show();
   }
 
   moveCharacter(x, y) {
     this.setState({ hero: { x: x, y: y } });
-    const { exit } = this.state;
-    if (exit && x == exit.x && y == exit.y)
-      alert('HOORAY');
+  }
+
+  endScript() {
+    const { hero, exit } = this.state;
+    if (!exit || hero.x != exit.x || hero.y != exit.y) 
+      return;
+    
+    if (this.props.next)
+      this.showModal(END_LEVEL_MESSAGE, this.props.next);
+    else
+      this.showModal(END_GAME_MESSAGE, this.props.next);
   }
 
   async componentDidMount() {
@@ -37,6 +58,8 @@ export class Environment extends Component {
 
   render() {
     const moveCharacter = (x, y) => this.moveCharacter(x, y);
+    const endScript = () => this.endScript();
+    const [href, text] = [this.state.modalHref, this.state.modalText];
     return (
       <LevelContext.Provider value={this.state}>
         <div className="h-100 w-100 m-0 mt-1 row row-cols-3">
@@ -44,7 +67,8 @@ export class Environment extends Component {
           <CodeField />
           <GameField />
         </div>
-        <StartButton moveCharacter={moveCharacter} />
+        <StartButton moveCharacter={moveCharacter} endScript={endScript} />
+        <Modal href={href} text={text} />
       </LevelContext.Provider>
     )
   }

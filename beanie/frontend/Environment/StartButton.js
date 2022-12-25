@@ -114,6 +114,7 @@ export class StartButton extends Component {
     const path = await this._fetchPath();
     if (path) await this._animatePath(path, moveFunc);
     this._enableStartButton();
+    this.props.endScript();
   }
 
   render() {
