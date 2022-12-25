@@ -1,0 +1,7 @@
+TODO: add attribution links to credits page
+
+puddle.png
+<a href="https://lovepik.com/images/png-droplets.html">Droplets Png vectors by Lovepik.com</a>
+
+exit.png
+<a href="https://www.freepik.com/free-vector/illustration-exit-sign-vector_2583412.htm">Image by rawpixel.com</a> on Freepik
