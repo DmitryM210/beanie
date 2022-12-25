@@ -44,7 +44,8 @@ def level_to_json(level):
     
     for object_list in level.field.objects.values():
         for object in object_list:
-            if object.name == 'Hero': continue
+            if object.name == 'Hero' or object.name == 'Exit': 
+                continue
             position_json = f'{object.position.x},{object.position.y}'
             if position_json not in objects_json:
                 objects_json[position_json] = []
@@ -58,6 +59,10 @@ def level_to_json(level):
         'hero': {
             'x': level.field.hero.position.x,
             'y': level.field.hero.position.y,
+        },
+        'exit': {
+            'x': level.field.exit.position.x,
+            'y': level.field.exit.position.y,
         },
         'objects': objects_json
     }

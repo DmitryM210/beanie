@@ -20,13 +20,14 @@ export class Environment extends Component {
     super(props);
     this.state = {
         size: { width: 0, height: 0 },
-        hero: { x: 0, y: 0 },
-        // puddle: { x: 0, y: 0 }
-    };  
+    };
   }
 
   moveCharacter(x, y) {
-    this.setState({ hero: { x: x, y: y} });
+    this.setState({ hero: { x: x, y: y } });
+    const { exit } = this.state;
+    if (exit && x == exit.x && y == exit.y)
+      alert('HOORAY');
   }
 
   async componentDidMount() {

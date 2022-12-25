@@ -13,11 +13,11 @@ export class GameField extends Component {
   }
 
   getCellTags(x, y) {
-    const { hero, objects } = this.context;
+    const { hero, exit, objects } = this.context;
     
     const hasHero = x == hero.x && y == hero.y;
     const hasPuddle = objects[`${x},${y}`]?.includes('Puddle');
-    const hasExit = objects[`${x},${y}`]?.includes('Exit');
+    const hasExit = x == exit.x && y == exit.y;
     
     var tags = ''
     if (hasHero)   tags += 'hero';

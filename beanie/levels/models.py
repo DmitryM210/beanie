@@ -120,6 +120,7 @@ class Field(models.Model):
         self.objects = objects
         self.hero = objects['Hero'][0]
         self.initial_hero_position = self.hero.position
+        self.exit = objects['Exit'][0]
 
     def is_hero_in_bounds(self):
         x, y = self.hero.position
@@ -135,6 +136,12 @@ class Field(models.Model):
         assert hero_exists, 'objects must contain a hero'
         hero_is_unique = len(objects['Hero']) == 1
         assert hero_is_unique, 'field cannot contain more than one hero'
+
+        exit_exists = 'Exit' in objects
+        assert exit_exists, 'objects must contain an exit'
+        exit_is_unique = len(objects['Exit']) == 1
+        assert exit_is_unique, 'field cannot contain more than one exit'
+
 
 
 class Level(models.Model):
