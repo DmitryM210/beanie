@@ -1,5 +1,4 @@
 from django.db import models
-
 from math import sin, cos, pi
 
 
@@ -102,8 +101,8 @@ class Path(models.Model):
         for command in commands:
             # TODO: Path shouldn't modify level's state
             self.level.accept_command(command)
-            in_bounds = self.level.is_hero_in_bounds()
-            position = self.level.hero.position
+            in_bounds = self.level.field.is_hero_in_bounds()
+            position = self.level.field.hero.position
             positions.append({
                 "x": position.x if in_bounds else -1,
                 "y": position.y if in_bounds else -1
@@ -120,7 +119,17 @@ class Field(models.Model):
         self.height = height
         self.objects = objects
         self.hero = objects['Hero'][0]
+        self.initial_hero_position = self.hero.position
+
+    def is_hero_in_bounds(self):
+        x, y = self.hero.position
+        width, height = self.width, self.height
+        return x >= 0 and y >= 0 and x < width and y < height
     
+    def reset_hero(self):
+        x, y = self.initial_hero_position
+        self.hero = Hero(x, y)
+
     def _assert_objects_are_valid(self, objects):
         hero_exists = 'Hero' in objects
         assert hero_exists, 'objects must contain a hero'
@@ -132,15 +141,9 @@ class Level(models.Model):
     def __init__(self, name, field):
         self.name = name
         self.field = field
-        self.hero = field.hero
 
     def accept_command(self, command):
-        self.hero.accept_command(command)
-
-    def is_hero_in_bounds(self):
-        x, y = self.hero.position
-        width, height = self.field.width, self.field.height
-        return x >= 0 and y >= 0 and x < width and y < height
+        self.field.hero.accept_command(command)
 
     def reload(self):
-        self.hero = Hero()
+        self.field.reset_hero()

@@ -56,8 +56,8 @@ def level_to_json(level):
             'height': level.field.height
         },
         'hero': {
-            'x': level.hero.position.x,
-            'y': level.hero.position.y,
+            'x': level.field.hero.position.x,
+            'y': level.field.hero.position.y,
         },
         'objects': objects_json
     }
