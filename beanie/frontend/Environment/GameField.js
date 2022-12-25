@@ -12,18 +12,28 @@ export class GameField extends Component {
     }
   }
 
+  getCellTags(x, y) {
+    const { hero, objects } = this.context;
+    
+    const hasHero = x == hero.x && y == hero.y;
+    const hasPuddle = objects[`${x},${y}`]?.includes('Puddle');
+    const hasExit = objects[`${x},${y}`]?.includes('Exit');
+    
+    var tags = ''
+    if (hasHero)   tags += 'hero';
+    if (hasPuddle) tags += ' puddle';
+    if (hasExit)   tags += ' exit';
+
+    return tags;
+  }
+
   renderSplitter() {
     return (<div key={this.state.keyIndex++} className="w-100"></div>);
   };
 
   renderCellAt(x, y) {
-    const { hero, objects } = this.context;
     const id = `c-${x}-${y}`;
-
-    const hasHero = x == hero.x && y == hero.y;
-    const hasPuddle = objects[`${x},${y}`]?.includes('Puddle');
-    const tags = `${hasHero ? 'hero' : ''}` + `${hasPuddle ? ' puddle' : ''}`;
-    
+    const tags = this.getCellTags(x, y);
     return (
       <div key={this.state.keyIndex++} className="col">
         <Cell key={this.state.keyIndex++} id={id} tags={tags} />

@@ -70,18 +70,25 @@ cached_level_jsons = {}
 level_object_ctors = {
     'H': lambda x, y: Hero(x, y),
     'P': lambda x, y: Object('Puddle', x, y),
+    'E': lambda x, y: Object('Exit', x, y)
 }
 
 levels = {
     1: level('level1', [
-        '..P',
         '...',
+        '..E',
         'H..',
     ]),
     2: level('level2', [
         '...',
+        '..E',
+        'P.P',
+        'H..',
+    ]),
+    3: level('level3', [
+        '..H',
+        '.PP',
         '...',
-        'PP.',
-        'HP.',
-    ])  
+        'PPE',
+    ])
 }

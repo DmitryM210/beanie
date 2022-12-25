@@ -15,6 +15,7 @@ export class Cell extends Component {
   images = {
     'hero': this.renderImage('fox', _image('fox.png')),
     'puddle': this.renderImage('puddle', _image('puddle.png')),
+    'exit': this.renderImage('exit', _image('exit.png')),
   }
 
   combined(...elements) {
