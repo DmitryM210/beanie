@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import HomePage from './HomePage/HomePage';
+import Credits from './Credits/Credits';
 import Environment from './Environment/Environment';
 
 async function _fetchLevels() {
@@ -23,8 +24,10 @@ function _getLevelFromHref() {
 export class App extends Component {
   constructor(props) {
     super(props);
+    const credits = window.location.pathname == '/credits/';
     const level = _getLevelFromHref();
     this.state = {
+      credits: credits,
       levels: [],
       selectedLevel: level
     };
@@ -45,6 +48,8 @@ export class App extends Component {
   }
 
   renderContent() {
+    if (this.state.credits)
+      return <Credits />
     const content = this.state.selectedLevel === '0' ?
       (<HomePage redirect='level/1/' />) : 
       this.renderEnvironment();
